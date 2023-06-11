@@ -8,3 +8,6 @@ Application designed to refresh and buy mystics, covenent, and optionally friend
 4. Define a delay time if you would like
 5. Save the configurations
 6. In your game go into the shop and in the program select the amount of skystones you would like to spend and hit start
+
+#Notes
+If the program freezes at anytime on idle you can open up the console window and press enter
