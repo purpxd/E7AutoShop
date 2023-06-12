@@ -5,7 +5,7 @@ Application designed to refresh and buy mystics, covenent, and optionally friend
 # Prerequisites
 1. Install python here https://www.python.org/downloads/
 # Getting Started
-1. Download the installer
+1. Download the installer https://github.com/purpxd/E7AutoShop/releases/download/v1/E7AutoShop.exe
 2. Inside the installation folder run the dependency installer called InstallPackages.exe
 3. Inside your emulator set the resolution to 1920 x 1080 
 4. Go to advanced settings and enable ADB. If there is a port number given to you then you will need it (usually bluestacks)
