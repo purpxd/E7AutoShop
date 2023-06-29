@@ -16,6 +16,9 @@ Application designed to refresh Epic Seven Secret Shop and buy mystics, covenent
 
 https://github.com/purpxd/E7AutoShop/assets/136267320/06259b97-9e77-45ab-b98d-15d8256f478e
 
+# Privacy
+1. Read privacy policy https://github.com/purpxd/E7AutoShop/blob/main/privacy.md
+   
 # Notes
 1. You will need to set the resolution in your emulator to 1920 x 1080 or it will not work properly
    
