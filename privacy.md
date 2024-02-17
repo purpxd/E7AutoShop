@@ -4,7 +4,7 @@ This Privacy Policy outlines how we collect, use, and protect your information w
 
 1. Information We Collect
 
-We only collect and process session data within the application. This may include information such as app usage patterns, session duration, and interactions with the app's features. We do not collect personally identifiable information (PII) such as your name, email address, or contact information.
+We only collect session data and geolocation. This may include information such as app usage patterns, session duration, and interactions with the app's features. We do not collect personally identifiable information (PII) such as your name, email address, or contact information.
 
 2. Use of Information
 
@@ -22,6 +22,4 @@ By downloading and using our application, you acknowledge and agree to the colle
 
 We reserve the right to update or modify this Privacy Policy at any time. Any changes will be effective immediately upon posting the revised policy within the application. We encourage you to review this Privacy Policy periodically for any updates.
 
-6. Contact Us
 
-If you have any questions or concerns regarding this Privacy Policy or our data practices, please contact us.
