@@ -1,0 +1,13 @@
+__pycache__/
+build/
+dist/
+virtualenv/
+*.env
+.env
+*.ifp
+*.exe
+*.spec
+*.db
+*.ui
+resource_rc.py
+error.log

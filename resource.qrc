@@ -1,0 +1,18 @@
+<RCC>
+  <qresource prefix="images">
+    <file>img/dark.png</file>
+    <file>img/light.png</file>
+    <file>img/ads.png</file>
+    <file>img/cov.png</file>
+    <file>img/gold.png</file>
+    <file>img/mystic.png</file>
+    <file>img/skystone.png</file>
+    <file>img/arky.png</file>
+    <file>img/arky_loading.png</file>
+    <file>img/buymecoffee.png</file>
+    <file>img/field.png</file>
+    <file>img/hunt.gif</file>
+    <file>img/hunt_done.gif</file>
+    <file>img/lobby.gif</file>
+  </qresource>
+</RCC>
