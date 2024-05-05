@@ -1,7 +1,9 @@
 # E7AutoShop
 Application designed to refresh Epic Seven Secret Shop and buy Mystic bookmarks and Covenent bookmarks
 
-Automatic refresh secret shop
+Automatic epic seven refresh secret shop
+
+![image](https://github.com/purpxd/E7AutoShop/assets/136267320/6578788c-d53b-4d20-91aa-3fd1db2c26f8)
 
 
 
