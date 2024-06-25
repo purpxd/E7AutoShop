@@ -44,7 +44,10 @@ class WatcherThread(QThread):
             while True:
                 if self.stopped:
                     break
-                time.sleep(3)
+                if count == 0:
+                    time.sleep(10)
+                else:
+                    time.sleep(5)
                 if count == 5:
                     break
                 cropped = self.screen()

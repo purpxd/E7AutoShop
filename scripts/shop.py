@@ -93,13 +93,13 @@ class Shop:
         subprocess.Popen(f"{self.adb} shell input tap {random.randint(1600, 1850)} {y}")
         time.sleep(0.25)
         subprocess.Popen(f"{self.adb} shell input tap {random.randint(1600, 1850)} {y}")
-        subprocess.Popen(f"{self.adb} shell input tap {random.randint(890, 1275)} {random.randint(740, 790)}")
+        subprocess.Popen(f"{self.adb} shell input tap {random.randint(1000, 1275)} {random.randint(740, 790)}")
         time.sleep(0.5)
-        subprocess.Popen(f"{self.adb} shell input tap {random.randint(890, 1275)} {random.randint(740, 790)}")
+        subprocess.Popen(f"{self.adb} shell input tap {random.randint(1000, 1275)} {random.randint(740, 790)}")
         time.sleep(0.5)
-        subprocess.Popen(f"{self.adb} shell input tap {random.randint(890, 1275)} {random.randint(740, 790)}")
+        subprocess.Popen(f"{self.adb} shell input tap {random.randint(1000, 1275)} {random.randint(740, 790)}")
         time.sleep(0.5)
-        subprocess.Popen(f"{self.adb} shell input tap {random.randint(890, 1275)} {random.randint(740, 790)}")
+        subprocess.Popen(f"{self.adb} shell input tap {random.randint(1000, 1275)} {random.randint(740, 790)}")
         time.sleep(1)
 
     def screen(self):
@@ -109,9 +109,9 @@ class Shop:
         return screenshot
 
     def swipe(self):
-        start_x = 1000
+        start_x = 1050
         start_y = 500
-        end_x = 1200
+        end_x = 1250
         end_y = 50
         speed_range = 50
         randomized_start_x = start_x + random.randint(-speed_range, speed_range)
@@ -214,11 +214,11 @@ class Shop:
             self.refresh()
             self.click_missions()
             self.output.append(f"\n\n{self.inventory['session_refreshes']}")
-            time.sleep(1)
+            time.sleep(1.5)
             screenshot = self.screen()
             for n in range(1, 5):
                 self.capture(screenshot, n)
-            time.sleep(1)
+            time.sleep(0.5)
             self.swipe()
             time.sleep(1)
             self.click_missions()

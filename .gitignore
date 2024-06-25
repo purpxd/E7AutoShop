@@ -11,3 +11,4 @@ virtualenv/
 *.ui
 resource_rc.py
 error.log
+activate.bat

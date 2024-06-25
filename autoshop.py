@@ -87,7 +87,7 @@ class Stopwatch(QTimer):
         else:
             self.start(1000)
             self.is_running = True
-
+    
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -97,7 +97,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.shop_stopwatch = Stopwatch(self.ui.lobby_timer)
-        self.version = "2.0"
+        self.version = "2.1"
         self.info = self.check()
         self.settings = QSettings('E7autoshop', 'Settings')
         sa.write_key = self.info['key']
@@ -218,7 +218,7 @@ class MainWindow(QMainWindow):
         self.ui.skystones_input.setEnabled(False)
         self.autoshop_status = True
         self.ui.lobby_timer.setText('00:00:00')
-        self.shop_stopwatch.toggle_start_stop()
+        self.shop_stopwatch.start(1000)
         self.skystones = int(self.ui.skystones_input.text())
         refreshes = self.skystones // 3
         self.shop_thread = ShopThread(refreshes)
@@ -226,6 +226,7 @@ class MainWindow(QMainWindow):
         self.shop_thread.inventory.connect(self.update_inventory)
         self.shop_thread.finished.connect(self.finished_run)
         self.shop_thread.start()
+        self.ui.lobby_progress_bar.setProperty("value", 0)
         self.ui.lobby_console.append(f"Starting {refreshes} runs")
         self.currency(0, 0, 0, 0)   # reset currency and colors
         self.color_currency()
@@ -247,12 +248,14 @@ class MainWindow(QMainWindow):
             self.shop_thread.resume()
             self.ui.lobby_console.append("Resuming")
 
+    @pyqtSlot()
     def on_autoshop_stop_btn_clicked(self):
         self.ui.autoshop_start_btn.setEnabled(True)
         self.ui.autoshop_pause_btn.setEnabled(False)
         self.ui.autoshop_stop_btn.setEnabled(False)
         self.ui.skystones_input.clear()
         self.ui.skystones_input.setEnabled(True)
+        self.shop_stopwatch.time_elapsed = 0
         self.shop_stopwatch.stop()
         self.shop_thread.stop()
         self.ui.lobby_console.append("Stopping")
@@ -328,15 +331,29 @@ class MainWindow(QMainWindow):
         self.ui.lobby_console.append(f"Finished watching ad {progress}")
 
     def finished_run(self, stash):
-        self.ui.autoshop_start_btn.setEnabled(True)
+        self.ui.autoshop_start_btn.setEnabled(False)
         self.ui.autoshop_pause_btn.setEnabled(False)
         self.ui.autoshop_stop_btn.setEnabled(False)
         self.ui.skystones_input.clear()
         self.ui.skystones_input.setEnabled(True)
+        self.shop_stopwatch.time_elapsed = 0
         self.shop_stopwatch.stop()
-        Sessions.create_update(date=datetime.today().strftime("%Y-%m-%d"), covenants=stash['covenants'], mystics=stash["mystics"], gems=stash["gems_spent"], gold=stash["gold_spent"])
+        Sessions.create_update(date=datetime.today().strftime("%Y-%m-%d"), 
+                               covenants=stash['covenants'], 
+                               mystics=stash["mystics"], 
+                               gems=stash["gems_spent"], 
+                               gold=stash["gold_spent"])
         if self.info['run_completed_t']:
-            sa.track(self.id, 'run_completed', {'application': 'E7AutoShop', 'status': 'finished', 'description': 'Finished autoshop cycle', 'covenents': stash['covenants'], 'mystics': stash["mystics"], 'gems_used': stash["gems_spent"], 'gold_used': stash["gold_spent"], 'duration': self.ui.lobby_timer.text()})
+            sa.track(self.id, 
+                     'run_completed', {
+                        'application': 'E7AutoShop',
+                        'status': 'finished',
+                        'description': 'Finished autoshop cycle',
+                        'covenents': stash['covenants'], 
+                        'mystics': stash["mystics"], 
+                        'gems_used': stash["gems_spent"], 
+                        'gold_used': stash["gold_spent"], 
+                        'duration': self.ui.lobby_timer.text()})
         self.update_inventory(stash)
         self.populate_table()
 

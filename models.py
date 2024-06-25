@@ -28,5 +28,4 @@ class Sessions(SQLObject):
     def get_data(cls):
             return cls.select(orderBy='-date')
 
-
-
+Sessions.createTable(ifNotExists=True)
