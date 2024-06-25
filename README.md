@@ -8,7 +8,7 @@ Automatic epic seven refresh secret shop
 
 
 # Getting Started
-1. Download the installer (https://github.com/purpxd/E7AutoShop/releases/download/v2.0/autoshop_installer_v2.0.exe)
+1. Download the installer (https://github.com/purpxd/E7AutoShop/releases/download/v2.1/autoshop_installer_v2.1.exe)
 2. Launch installer
 3. Inside your emulator set the resolution to **1920 x 1080**. In advanced settings, enable ADB
 4. Start autoshop.exe
