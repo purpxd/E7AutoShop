@@ -1,7 +1,9 @@
 # E7AutoShop
 Application designed to refresh Epic Seven Secret Shop and buy Mystic bookmarks and Covenent bookmarks
 
-Automatic refresh secret shop
+Automatic epic seven refresh secret shop
+
+![image](https://github.com/purpxd/E7AutoShop/assets/136267320/6578788c-d53b-4d20-91aa-3fd1db2c26f8)
 
 
 
@@ -11,12 +13,12 @@ Automatic refresh secret shop
 3. Inside your emulator set the resolution to **1920 x 1080**. In advanced settings, enable ADB
 4. Start autoshop.exe
 
-# How To
-**Auto Shop**
-Input the amount of skystones you would like to use and press start
+# Video Demo
 
-**Auto Watch Ads**
-Go to your events and scroll down until the ads banner is at the very bottom and press watch ads
+
+
+https://github.com/purpxd/E7AutoShop/assets/136267320/f8659821-1c0a-4378-823a-aaac91f5e58c
+
 
 # Notes
 1. You will need to set the resolution in your emulator to 1920 x 1080 or it will not work properly
