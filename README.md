@@ -10,15 +10,25 @@ Automatic epic seven refresh secret shop
 # Getting Started
 
 1. Download autoshop zip file (https://github.com/purpxd/E7AutoShop/releases/download/v2.2/E7AutoShop.zip)
-2. Extract zip file
-3. Launch autoshop.exe
+2. Right click zip file > properties > unblock
+3. Extract zip file
+4. Launch autoshop.exe
+
+#### Alternative - Build from source
+*detailed instructions in contributions section*
+
+1. Build ui
+2. Install python dependencies & activate virtualenv
+3. pyinstaller main.spec
 
 **Under Emulator settings**
+
 4. Display -> Display resolution ->  **1920 x 1080**
 5. Advanced -> Android Debug Bridge(ADB) -> **ON**
 6. Take note of the emulator port number (example: 127.0.0.1:**5555**)
 
 **In app**
+
 7. Settings ⚙️ -> Enter port number -> save -> connect
 
 # Notes
