@@ -4,8 +4,7 @@ Application designed to refresh Epic Seven Secret Shop and buy Mystic bookmarks 
 
 Automatic epic seven refresh secret shop
 
-![image](https://github.com/purpxd/E7AutoShop/assets/136267320/6578788c-d53b-4d20-91aa-3fd1db2c26f8)
-
+<img width="393" alt="E7AutoShop_2S9CnJczLD" src="https://github.com/user-attachments/assets/f70f753a-ecb6-4a99-9d13-e776b6110f0e" />
 
 # Getting Started
 
