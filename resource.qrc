@@ -1,5 +1,11 @@
 <RCC>
   <qresource prefix="images">
+    <file>img/star2_google.png</file>
+    <file>img/heart.png</file>
+    <file>img/tv.png</file>
+    <file>img/books.png</file>
+    <file>img/robot_face.png</file>
+    <file>img/page_with_curl.png</file>
     <file>img/dark.png</file>
     <file>img/light.png</file>
     <file>img/ads.png</file>
