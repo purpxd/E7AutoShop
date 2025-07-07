@@ -4,20 +4,16 @@ import uuid
 import ctypes
 import socket
 import logging
-import requests
-import win32gui
-import win32con
+# import win32gui
+# import win32con
+# import win32console
 import webbrowser
 import qdarktheme
 import subprocess
-import win32console
-import base64 as b
-import segment.analytics as sa
 from models import Sessions
 from ui import Ui_MainWindow
-from bs4 import BeautifulSoup
 from datetime import datetime
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from scripts.shop import ShopThread
 from scripts.watchads import WatcherThread
 from PyQt5.QtGui import (
@@ -93,15 +89,12 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         logging.basicConfig(filename='error.log', level=logging.ERROR)
-        load_dotenv()
+        # load_dotenv()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.shop_stopwatch = Stopwatch(self.ui.lobby_timer)
-        self.version = "2.1"
-        self.info = self.check()
+        self.version = "2.1.1"
         self.settings = QSettings('E7autoshop', 'Settings')
-        sa.write_key = self.info['key']
-        self.addr = self.fetch_addr()
         self.user()
         self.autoshop_status = False
         self.watching = False
@@ -110,14 +103,11 @@ class MainWindow(QMainWindow):
         self.lobbymov.start()
         self.ui.stackedWidget.setCurrentIndex(0)
         self.ui.donation_logo.setOpenExternalLinks(True)
-        self.ui.donation_logo.mousePressEvent = self.open_url
         self.ui.autoshop_start_btn.setEnabled(False)
         self.ui.autoshop_pause_btn.setEnabled(False)
         self.ui.autoshop_stop_btn.setEnabled(False)
         self.theme = None
         self.ui_theme()
-        self.import_e7leaks()
-        self.ui.patch_edit.verticalScrollBar().setValue(self.ui.patch_edit.verticalScrollBar().maximum())
         self.ui.lobby_console.setStyleSheet("background-color: black; color: #1cfc03;")
         self.ui.skystones_input.textChanged.connect(self.validate_input)
         self.populate_table()
@@ -132,13 +122,9 @@ class MainWindow(QMainWindow):
         self.socket_thread = SocketThread()
         self.socket_thread.data_recv.connect(self.update_console)
         self.socket_thread.start()
-        self.announcement()
 
     def update_console(self, data):
         self.ui.lobby_console.append(data)
-
-    def announcement(self):
-        self.ui.announcement.setText(self.info['announcement'])
 
     def validate_input(self):
         if not self.ui.skystones_input.text().isdigit() or len(str(self.ui.skystones_input.text())) == 0:
@@ -146,30 +132,6 @@ class MainWindow(QMainWindow):
             self.ui.skystones_input.clear()
         else:
             self.ui.autoshop_start_btn.setEnabled(True)
-
-    def fetch_addr(self):
-        try:
-            r = requests.get(self.info['addr1'])
-        except Exception:
-            r = requests.get(self.info['addr2'])
-        return r
-
-    def import_e7leaks(self):
-        url = self.info['leaks']
-        response = requests.get(url)
-        html_content = response.text
-        soup = BeautifulSoup(html_content, "html.parser")
-        div_elements = soup.find_all("div", class_="mb-4")
-        for div in div_elements:
-            card_header = div.find("h5", class_="card-header")
-            header = card_header.text.replace(")", ") ")
-            header_with_css = f"<span style='font-weight:bold;'>{header}</span>"
-            self.ui.patch_edit.append(header_with_css)
-            card_body = div.find("div", class_="card-body")
-            ul = card_body.find("ul")
-            for li in ul:
-                self.ui.patch_edit.append(str(li))
-                self.ui.patch_edit.append("\n")
 
     def on_autoshop_btn_clicked(self):
         self.ui.stackedWidget.setCurrentIndex(0)
@@ -200,15 +162,12 @@ class MainWindow(QMainWindow):
             self.ui.watchads_btn.setChecked(False)
 
     @pyqtSlot()
-    def on_update_btn_clicked(self):
-        webbrowser.open(self.info['github'])
-        if self.info['github_t']:
-            sa.track(self.id, 'UPDATE', self.info['github_sa'])
+    def on_donate_btn_clicked(self):
+        webbrowser.open("https://www.ko-fi.com/purpxd")
 
-    def open_url(self, event):
-        webbrowser.open(self.info['donation'])
-        if self.info['qr_t']:
-            sa.track(self.id, 'QR Code', self.info['qr_sa'])
+    @pyqtSlot()
+    def on_cb_btn_clicked(self):
+        webbrowser.open("https://ceciliabot.github.io/#/")
 
     @pyqtSlot()
     def on_autoshop_start_btn_clicked(self):
@@ -292,40 +251,18 @@ class MainWindow(QMainWindow):
         self.color_currency()
         self.settings.setValue('theme', self.theme)
 
-    def check(self) -> dict:
-        headers = {'X-API-KEY': b.b64decode(os.getenv("K")).decode("utf-8")}
-        r = requests.get(b.b64decode(os.getenv("U")).decode("utf-8"), headers=headers)
-        info = r.json()
-        if self.version != info['app_version']:
-            self.ui.update_btn.setVisible(True)
-        else:
-            self.ui.update_btn.setVisible(False)
-        return info
-
     def user(self):
         id = str(uuid.uuid4())
         if self.settings.contains('user_id'):
             self.id = self.settings.value('user_id')
-            if self.info['identify']:
-                sa.identify(user_id=self.id, traits={'app_version': self.version}, context={'ip': self.addr.text})
         else:
             self.settings.setValue('user_id', id)
-            traits = {
-                'app_version': self.version,
-                'createdAt': datetime.now()
-            }
             self.id = id
-            if self.info['identify']:
-                sa.identify(user_id=self.id, traits=traits, context={'ip': self.addr.text})
-        if self.info['session_start']:
-            sa.track(self.id, '$session_start', self.info['started'], context={'ip': self.addr.text})
 
     def finished_ads(self):
         self.ui.watchads_btn.setChecked(False)
         self.ui.lobby_console.append("Ads Finished")
         self.ui.skystones_input.setEnabled(True)
-        if self.info['ads_t']:
-            sa.track(self.id, 'ads', self.info['ads_sa'])
 
     def ads_progress(self, progress):
         self.ui.lobby_console.append(f"Finished watching ad {progress}")
@@ -343,17 +280,6 @@ class MainWindow(QMainWindow):
                                mystics=stash["mystics"], 
                                gems=stash["gems_spent"], 
                                gold=stash["gold_spent"])
-        if self.info['run_completed_t']:
-            sa.track(self.id, 
-                     'run_completed', {
-                        'application': 'E7AutoShop',
-                        'status': 'finished',
-                        'description': 'Finished autoshop cycle',
-                        'covenents': stash['covenants'], 
-                        'mystics': stash["mystics"], 
-                        'gems_used': stash["gems_spent"], 
-                        'gold_used': stash["gold_spent"], 
-                        'duration': self.ui.lobby_timer.text()})
         self.update_inventory(stash)
         self.populate_table()
 
@@ -419,17 +345,15 @@ class MainWindow(QMainWindow):
             self.ui.tableWidget.setItem(index, 3, QTableWidgetItem(str(row.gems_spent)))
             self.ui.tableWidget.setItem(index, 4, QTableWidgetItem(str(row.gold_spent)))
 
-    def hide_console_window(self):
-        try:
-            console_window = win32console.GetConsoleWindow()
-            if console_window != 0:
-                win32gui.ShowWindow(console_window, win32con.SW_HIDE)
-        except ImportError as e:
-            print(e)
+    # def hide_console_window(self):
+    #     try:
+    #         console_window = win32console.GetConsoleWindow()
+    #         if console_window != 0:
+    #             win32gui.ShowWindow(console_window, win32con.SW_HIDE)
+    #     except ImportError as e:
+    #         print(e)
 
     def exit(self):
-        if self.info['session_end']:
-            sa.track(self.id, '$session_end', self.info['finished'], context={'ip': self.addr.text})
         subprocess.call(['taskkill', '/F', '/IM', 'adb.exe'])
 
 if __name__ == "__main__":
@@ -445,7 +369,7 @@ if __name__ == "__main__":
         icon = QIcon(os.path.join(basedir, 'img/arky.png'))
         window.setWindowIcon(icon)
         window.show()
-        window.hide_console_window()
+        # window.hide_console_window()
         app.aboutToQuit.connect(window.exit)
         sys.exit(app.exec())
     except Exception as e:
