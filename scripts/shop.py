@@ -212,16 +212,16 @@ class Shop:
         sys.stdout = self.output = []
         try:
             self.refresh()
-            self.click_missions()
+            # self.click_missions()
             self.output.append(f"\n\n{self.inventory['session_refreshes']}")
-            time.sleep(1.5)
+            time.sleep(1)
             screenshot = self.screen()
             for n in range(1, 5):
                 self.capture(screenshot, n)
             time.sleep(0.5)
             self.swipe()
             time.sleep(1)
-            self.click_missions()
+            # self.click_missions()
             screenshot = self.screen()
             for n in range(5, 7):
                 self.capture(screenshot, n)
