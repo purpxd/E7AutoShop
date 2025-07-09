@@ -4,6 +4,8 @@
 *.ifp
 *.spec
 .env
+start.bat
+log.txt
 __pycache__/
 activate.bat
 build/
