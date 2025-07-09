@@ -65,10 +65,10 @@ class Shop:
     
     def __init__(self) -> None:
         logging.basicConfig(filename='error.log', level=logging.ERROR)
-        adb_path = os.path.join(os.path.dirname(__file__), '..', 'adb', 'adb.exe')
+        adb_path = os.path.join(os.path.dirname(__file__), '..', 'tools/adb', 'adb.exe')
         self.adb = os.path.abspath(adb_path)
         #pytesseract.pytesseract.tesseract_cmd = r"tesseract-ocr\tesseract.exe"
-        pytesseract.pytesseract.tesseract_cmd = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'tesseract-ocr', 'tesseract.exe'))
+        pytesseract.pytesseract.tesseract_cmd = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'tools/tesseract-ocr', 'tesseract.exe'))
         subprocess.call(['taskkill', '/F', '/IM', 'adb.exe'])
         subprocess.run(f'{self.adb} start-server', shell=True)              #static y values
         self.items = {'item_1': ['1730', f'{random.randint(222, 270)}'],    #250
@@ -214,7 +214,7 @@ class Shop:
             self.refresh()
             # self.click_missions()
             self.output.append(f"\n\n{self.inventory['session_refreshes']}")
-            time.sleep(1)
+            time.sleep(0.5)
             screenshot = self.screen()
             for n in range(1, 5):
                 self.capture(screenshot, n)

@@ -16,10 +16,10 @@ class WatcherThread(QThread):
     def __init__(self) -> None:
         super().__init__()
         self.stopped = False
-        adb_path = os.path.join(os.path.dirname(__file__), '..', 'adb', 'adb.exe')
+        adb_path = os.path.join(os.path.dirname(__file__), '..', 'tools/adb', 'adb.exe')
         self.adb = os.path.abspath(adb_path)
         #pytesseract.pytesseract.tesseract_cmd = r"tesseract-ocr\tesseract.exe"
-        pytesseract.pytesseract.tesseract_cmd = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'tesseract-ocr', 'tesseract.exe'))
+        pytesseract.pytesseract.tesseract_cmd = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'tools/tesseract-ocr', 'tesseract.exe'))
         subprocess.call(['taskkill', '/F', '/IM', 'adb.exe'])
         subprocess.run(f'{self.adb} start-server', shell=True)
 
